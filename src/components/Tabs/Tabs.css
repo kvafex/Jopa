@@ -1,0 +1,23 @@
+@keyframes scroll_down{
+    0%{
+        top: -500px;
+    }
+    100%{
+        top: 0px;
+    }
+}
+@keyframes scroll_up{
+    0%{
+        top: 0px;
+    }
+    100%{
+        top: -500px;
+    }
+}
+.iconLeft{
+    margin-left: 60px;
+}
+.z2{
+    z-index: 2;
+    position: absolute;
+}
