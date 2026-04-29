@@ -1,14 +1,14 @@
 import { useState } from "react";
-import icon from "./assets/icon.png";
 import BioPage from "./components/Bio/BioPage";
 import TargetPage from "./components/Target/TargetPage";
 import MatrixPage from "./components/Matrix/MatrixPage";
-//import MathanPage from "./components/Mathan/MathanPage";
-//import GamePage from "./components/Game/GamePage";
 import Canvas3DPage from "./components/Canvas3DPage/Canvas3DPage";
 import Canvas2DPage from "./components/Canvas2DPage/Canvas2DPage";
 import CalculatorPage from "./components/Calculator/CalculatorPage";
 import Tabs from "./components/Tabs/Tabs";
+
+import icon from "./assets/icon.png";
+
 import "./App.css";
 
 export enum EPAGE { BIO, TARGET, MATRIX, CALC, GRAPH2D, GRAPH3D}

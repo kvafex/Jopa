@@ -1,3 +1,17 @@
+import { Point } from "../math3D";
+
+export type TWIN = {
+    LEFT: Number;
+    BOTTOM: number;
+    WIDTH: number;
+    HEIGHT: number;
+}
+
+export type TWIN3D = TWIN & {
+    CAMERA: Point;
+    FOCUS: Point;
+}
+
 class Canvas{
     constructor({id, WIN, width = 500, height = 500, callbacks = {} }){
         this.canvas = document.getElementById(id);

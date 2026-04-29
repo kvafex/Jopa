@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Func from "../../../modules/math2D/Func";
+import Func from "../../../modules/math2D/entities/Func";
 import FuncUI from "./FuncUI";
 
 const UI2D = (props) => {
