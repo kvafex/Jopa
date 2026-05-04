@@ -1,7 +1,13 @@
-import './Tabs.css';
 import { EPAGE } from '../../App';
 
-const Tabs: React.FC <{showPage: (value: EPAGE) => void, setTabs: (value: boolean) => void}> = ({ showPage, setTabs }) => {
+import './Tabs.css';
+
+type TTabs = {
+    showPage: (value: EPAGE) => void;
+    setTabs: (value: boolean) => void;
+}
+
+const Tabs: React.FC <TTabs> = ({ showPage, setTabs }) => {
     return (<div className="flex_r iconLeft z2">
             <button className="mar_r" onClick={() => {showPage(EPAGE.BIO); setTabs(false)}}>био</button>
             <button className="mar_r" onClick={() => {showPage(EPAGE.TARGET); setTabs(false)}}>мишень</button>

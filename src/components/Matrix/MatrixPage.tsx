@@ -1,25 +1,22 @@
 import { useRef } from "react";
 import Matrix from "../../modules/matrix/Matrix";
-
-type TMatrix = number[][];
+import { TMatrix } from "../../modules/matrix/Matrix";
+import './MatrixPage.css';
 
 const MatrixPage: React.FC = () => {
     const matrix: Matrix = new Matrix();
     let currentMatrix: TMatrix = [];
-    const countRef = useRef<HTMLInputElement>(null);
-    const matrixRef = useRef<HTMLDivElement>(null);
+    const countRef = useRef<HTMLInputElement>(null!);
+    const matrixRef = useRef<HTMLDivElement>(null!);
     
     const matrixCreate = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const count = Number(countRef.current?.value) || 0;
+        const count = Number(countRef.current.value) || 0;
         const colLine = [];
         for (let i = 0; i < count; i++) {
             colLine.push('<div>|</div><div>_</div>');
         }
-        if (matrixRef.current){
-            matrixRef.current.innerHTML = '';
-        }
-        const data = (event.target as HTMLButtonElement).dataset.matrix;
-        switch (data) {
+        matrixRef.current.innerHTML = '';
+        switch ((event.target as HTMLButtonElement).dataset.matrix) {
             case 'matrixMainDiagonal': currentMatrix = matrix.matrixMainDiagonal(count); break;
             case 'matrixSideDiagonal': currentMatrix = matrix.matrixSideDiagonal(count); break;
             case 'matrixDownLeft': currentMatrix = matrix.matrixDownLeft(count); break;
@@ -38,15 +35,12 @@ const MatrixPage: React.FC = () => {
             for (let j = 0; j < currentMatrix.length; j++) {
                 col.push(`<div>${currentMatrix[j][i]}</div>`);
             }
-            if (matrixRef.current) {
-                matrixRef.current.innerHTML += `<div className="flex_r">${col}</div>`;
-                matrixRef.current.innerHTML = matrixRef.current.innerHTML.replaceAll(',','_');
+            
+            matrixRef.current.innerHTML += `<div className="flex_r">${col}</div>`;
+            matrixRef.current.innerHTML = matrixRef.current.innerHTML.replaceAll(',','_');
                 
-                matrixRef.current.innerHTML += `<div className="flex_r">${colLine}</div>`;
-                matrixRef.current.innerHTML = matrixRef.current.innerHTML.replaceAll(',','');
-            }
-            
-            
+            matrixRef.current.innerHTML += `<div className="flex_r">${colLine}</div>`;
+            matrixRef.current.innerHTML = matrixRef.current.innerHTML.replaceAll(',','');
         }
     }
 
