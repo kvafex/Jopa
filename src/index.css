@@ -1,0 +1,27 @@
+body{
+    background-color: rgba(29, 90, 21, 0.723);
+}
+/*animation: change-picture 13s infinite;*/
+@keyframes change-picture{
+    0%{
+        background: url('./assets/1.jpg') center center fixed;
+        background-size: cover;
+    }
+    25%{
+        background: url('./assets/2.jpg') center center fixed;
+        background-size: cover;
+    }
+    
+    50%{
+        background: url('./assets/3.jpg') center center fixed;
+        background-size: cover;
+    }
+    75%{
+        background: url('./assets/2.jpg') center center fixed;
+        background-size: cover;
+    }
+    100%{
+        background: url('./assets/1.jpg') center center fixed;
+        background-size: cover;
+    }
+}

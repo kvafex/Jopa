@@ -1,0 +1,17 @@
+textarea:hover{
+    background-color: #ffffffaf;
+    color: black;
+}
+.max_size{
+    width: fit-content;
+    height: fit-content;
+}
+.a_center{
+    align-items: center;
+}
+.center{
+    margin-top: 70px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
