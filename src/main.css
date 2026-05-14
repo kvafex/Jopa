@@ -1,0 +1,181 @@
+
+.color-text{
+    color:#ffffff;
+    font-weight:500;
+}
+.output{
+    background-color: rgb(170, 24, 24);
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 20px;
+    color: #ffffff;
+}
+.canvasInput{
+    background-color: rgb(170, 24, 24);
+    font-size: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 20px;
+    color: #ffffff;
+}
+.backgroundG{
+    background-color: black;
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 20px;
+    color: #ffffff;
+}
+.outputWB{
+    border: 5px dashed rgb(170, 24, 24);
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 20px;
+    color: #ffffff;
+}
+.active:hover{
+    background-color: rgb(170, 24, 24);
+}
+.showB{
+    background-color: rgb(170, 24, 24);
+}
+.flex_r{
+    display:flex;
+    flex-direction:row;
+}
+.flex_c{
+    display:flex;
+    flex-direction:column;
+}
+.pad_l{
+    padding-left: 40px;
+}
+.mar_b{
+    margin-bottom: 50px;
+}
+.mar_r{
+    margin-right: 20px;
+}
+.mar_l{
+    margin-left: 30px;
+}
+.mar_lThirdy{
+    margin-left: 30px;
+}
+.mar_b{
+    margin-bottom: 10px;
+}
+.clnline{
+    text-decoration: none;
+}
+.button1{
+    border-radius: 20px;
+    font-size: 200%;
+    border-style: hidden;
+    background: rgb(228, 175, 142);
+}
+button:hover{
+    border-color: #ffffff;
+}
+@keyframes scroll_right{
+    0%{
+        left: -500px;
+    }
+    100%{
+        left: 0px;
+    }
+}
+@keyframes scroll_left{
+    0%{
+        left: 0px;
+    }
+    100%{
+        left: -1000px;
+        display: none;
+    }
+}
+.fixed{
+    position: fixed;
+}
+.sidebar-before{
+    position: fixed;
+    background-color: grey;
+    border-bottom: 1000px dotted grey;
+    border-top: 50px dotted grey;
+    border-right: 20px dotted grey;
+    animation: scroll_left 5s;
+    left: -5000px;
+    top: 0px;
+}
+.sidebar-after{
+    position: fixed;
+    display: block;
+    z-index: 99;
+    border-bottom: 1000px dotted grey;
+    border-top: 50px dotted grey;
+    border-right: 20px dotted grey;
+    background-color: grey;
+    left: 0px;
+    top: 0px;
+    animation: scroll_right 2s;
+}
+.bottom{
+    bottom: 50px;
+}
+.content{
+    background: url('pictures/4.jpg') center center;
+    background-size: cover;
+    border-radius: 20px;
+    padding: 5%;
+}
+#canvas{
+    background-color: #ffffff;
+}
+.canvasE{
+    border-radius: 13px;
+}
+.marcanv{
+    margin-left: 510px;
+    margin-bottom: 425px;
+}
+.checkbox{
+    appearance: none;
+    width: 70px;
+    height: 20px;
+    border: 1px;
+    border-radius: 10px;
+    background-color: black; 
+}
+.checkbox:checked{
+    background-color: green;
+}
+.checkboxPolygon{
+    appearance: none;
+    width: 70px;
+    height: 20px;
+    border: 1px;
+    border-radius: 10px;
+    background-color: green; 
+}
+.checkboxPolygon:checked{
+    background-color: black;
+}
+.checkboxPolygon:hover{
+    background-color: white;
+}
+.checkbox:disabled{
+    background-color: red;
+}
+.checkbox:hover{
+    background-color: white;
+}
+.cInput:hover{
+    background-color: #ffffff;
+    color: #000000;
+}
+.addSizeOutput{
+    padding-bottom: 70px;
+    padding-right: 70px;
+}
+.max_h{
+    object-fit: contain;
+    height: 70px;
+}

@@ -1,0 +1,58 @@
+#canvas{
+    background-color: #ffffff;
+}
+.canvasE{
+    border-radius: 13px;
+}
+.mar_b{
+    margin-bottom: 10px;
+}
+.mar_l{
+    margin-left: 10px;
+}
+.mar_r{
+    margin-right: 10px;
+}
+.mar_t{
+    margin-top: 10px;
+}
+.height{
+    height: 60px;
+}
+.panel{
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 17px;
+    color: #ffffff;
+    background-color: #4d0505c4;
+    align-items: center;
+    width: fit-content;
+    height: min-content;
+    box-sizing: border-box;
+}
+.mainPanel{
+    width: fit-content;
+}
+select{
+    width: min-content;
+}
+.iconTop{
+    margin-top: 55px;
+}
+.fixed{
+    position: absolute;
+    z-index: -1;
+}
+.ignoreClick{
+    pointer-events: none;
+}
+.z5{
+    z-index: 5;
+}
+.z4{
+    z-index: 4;
+}
+.max_size{
+    width: fit-content;
+    height: fit-content;
+}
