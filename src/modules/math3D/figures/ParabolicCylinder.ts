@@ -73,6 +73,88 @@ class ParabolicCylinder extends Figure {
             
         }
     }
+
+    clear(): void {
+        this.points = [];
+        this.edges = [];
+        this.polygons = [];
+    }
+
+    setP(p: number): void {
+        this.clear();
+        this.p = p,
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            p: p,
+            u: this.u,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setU(u: number): void {
+        this.clear();
+        this.u = u,
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            p: this.p,
+            u: u,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setCount(count: number): void {
+        this.clear();
+        this.count = count;
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            p: this.p,
+            u: this.u,
+            count: count,
+            color: this.color,
+        });
+    }
+
+    setCenter(x: number, y: number, z: number): void {
+        this.clear();
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.init({
+            x0: x,
+            y0: y,
+            z0: z,
+            p: this.p,
+            u: this.u,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setOCenter(center: Point): void {
+        this.center = center;
+    }
+
+    setColor(color: string): void {
+        this.clear();
+        this.color = color;
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            p: this.p,
+            u: this.u,
+            count: this.count,
+            color: color,
+        });
+    }
 }
 
 export default ParabolicCylinder;

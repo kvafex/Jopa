@@ -80,6 +80,51 @@ class Hyperbolic extends Figure {
         this.polygons = [];
     }
 
+    setA(a: number): void {
+        this.clear();
+        this.a = a,
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            a: a,
+            b: this.b,
+            u: this.u,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setB(b: number): void {
+        this.clear();
+        this.b = b,
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            a: this.a,
+            b: b,
+            u: this.u,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setU(u: number): void {
+        this.clear();
+        this.u = u,
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            a: this.a,
+            b: this.b,
+            u: u,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
     setCount(count: number): void {
         this.clear();
         this.count = count;
@@ -110,6 +155,10 @@ class Hyperbolic extends Figure {
             count: this.count,
             color: this.color,
         });
+    }
+
+    setOCenter(center: Point): void {
+        this.center = center;
     }
 
     setColor(color: string): void {

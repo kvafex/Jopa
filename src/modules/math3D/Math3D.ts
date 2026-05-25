@@ -30,12 +30,14 @@ class Math3D {
     xs(point: Point): number {
         const Cz = this.WIN.CAMERA.z;
         const Fz = this.WIN.FOCUS.z;
+
         return point.x * (Fz - Cz) / (point.z - Cz);
     }
 
     ys(point: Point): number {
         const Cz = this.WIN.CAMERA.z;
         const Fz = this.WIN.FOCUS.z;
+
         return point.y * (Fz - Cz) / (point.z - Cz);
     }
 
@@ -48,6 +50,7 @@ class Math3D {
             }
             c[i] = s;
         }
+
         return c;
     }
 
@@ -67,6 +70,7 @@ class Math3D {
                 c[i][j] = s;
             }
         }
+        
         return c;
     }
 
@@ -202,12 +206,11 @@ class Math3D {
                 if (polygon2.lumen > polygon.lumen) {
                     continue;
                 }
-
                 const dark = this.calcVectorModule(this.vectorProd(this.calcVector(M0, M1), S)) / this.calcVectorModule(S);
-                if (dark < R) {
+                if (dark <= R) {
                     return {
                         isShadow: true,
-                        dark: dark / 1.3,
+                        dark: dark / 1.5,
                     };
                 }
             }

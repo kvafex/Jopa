@@ -10,10 +10,9 @@ const useCalculator = (
 
     const calc = new Calculator();
 
-    return (act: EOperand) => {
+    return (action: EOperand): void => {
         const a = calc.getValue(aRef.current.value);
         const b = calc.getValue(bRef.current.value);
-        let action = act;
 
         if (action === 'getValue' && a instanceof Polynom) {
             cRef.current.value = a.getValueP(b).toString();

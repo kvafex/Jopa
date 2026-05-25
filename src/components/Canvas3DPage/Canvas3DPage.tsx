@@ -24,10 +24,7 @@ const Canvas3DPage: React.FC = () => {
     const LIGHTXYZ = [-20, 20, 10];
     let LUMEN = 10000;
 
-    const listLight = [
-        new Light(LIGHTXYZ[0], LIGHTXYZ[1], LIGHTXYZ[2], LUMEN),
-        //new Light(-LIGHTXYZ[0], -LIGHTXYZ[1], -LIGHTXYZ[2], LUMEN),
-    ];
+    const listLight = [ new Light(LIGHTXYZ[0], LIGHTXYZ[1], LIGHTXYZ[2], LUMEN) ];
 
     let canMove = false;
     let canRotateXY = false;
@@ -43,6 +40,7 @@ const Canvas3DPage: React.FC = () => {
 
     let canvas: Canvas = null!;
     const [getCanvas, startRender, stopRender] = useCanvas(renderFrame);
+    
     useEffect(() => {
         canvas = getCanvas({
             id: canvas3DID,
@@ -113,25 +111,6 @@ const Canvas3DPage: React.FC = () => {
         event.preventDefault();
     }
 
-    const changeLumen = (event: ChangeEvent): void => {
-        listLight[0] = new Light(LIGHTXYZ[0], LIGHTXYZ[1], LIGHTXYZ[2], Number((event.target as HTMLInputElement).value));
-    }
-    
-    const changeXLight = (event: React.KeyboardEvent): void => {
-        LIGHTXYZ[0] = Number((event.target as HTMLInputElement).value);
-        listLight[0] = new Light(LIGHTXYZ[0], LIGHTXYZ[1], LIGHTXYZ[2], LUMEN);
-    }
-    
-    const changeYLight = (event: React.KeyboardEvent): void => {
-        LIGHTXYZ[1] = Number((event.target as HTMLInputElement).value);
-        listLight[0] = new Light(LIGHTXYZ[0], LIGHTXYZ[1], LIGHTXYZ[2], LUMEN);
-    }
-    
-    const changeZLight = (event: React.KeyboardEvent): void => {
-        LIGHTXYZ[2] = Number((event.target as HTMLInputElement).value);
-        listLight[0] = new Light(LIGHTXYZ[0], LIGHTXYZ[1], LIGHTXYZ[2], LUMEN);
-    }
-
     useEffect(() => {
         const id = setInterval(() => show.animations && scenes.forEach(scene => scene.doAnimation(math3D)), 50);
         return () => clearInterval(id);
@@ -141,11 +120,13 @@ const Canvas3DPage: React.FC = () => {
         canvas.clear();
         if (show.polygons) {
             const polygons: Array<Polygon> = [];
-            scenes.forEach(scene => scene.polygons.forEach(
+            scenes.forEach((scene, index) => scene.polygons.forEach(
                 polygon => {
+                    polygon.figureIndex = index;
                     math3D.calcCenter(polygon);
                     math3D.calcDistance(polygon, WIN.CAMERA, EDist.distance);
                     math3D.calcDistance(polygon, listLight[0], EDist.lumen);
+                    math3D.calcRadius(polygon);
                     polygons.push(polygon);
                 }));
             math3D.sortByArtist(polygons);
@@ -156,8 +137,7 @@ const Canvas3DPage: React.FC = () => {
                 let power = listLight[0].lumenPower;
                 if (show.shadows) {
                     const {isShadow, dark} = math3D.calcShadow(polygon, scenes, listLight[0]);
-                    //console.log(isShadow, dark);
-                    power *= (isShadow && dark ? dark : 1);
+                    power *= ((isShadow && dark) ? dark : 1);
                 }
                 light = math3D.calcIllumination(polygon.lumen, power);
 
@@ -199,11 +179,8 @@ const Canvas3DPage: React.FC = () => {
                 <div className="flex_c">
                     <UI3D
                         scenes={scenes}
-                        changeLumen={changeLumen}
-                        changeXLight={changeXLight}
-                        changeYLight={changeYLight}
-                        changeZLight={changeZLight}
                         show={show}
+                        listLight={listLight}
                     />
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import Cube from "./figures/Cube";
 import Ring from "./figures/Ring";
 import BottleKleine from "./figures/BottleKleine";
-import Chips from "./figures/Chips";
+import Sadle from "./figures/Sadle";
 import Tor from "./figures/Tor";
 import Sphere from "./figures/Sphere";
 import EllipticalCylinder from "./figures/EllipticalCylinder";
@@ -20,7 +20,7 @@ import { Point, Edge, Polygon, Figure, Light } from "./entities";
 
 export { 
     Point, Edge, Polygon, Figure, Light,
-    Math3D, Cube, Ring, BottleKleine, Chips,
+    Math3D, Cube, Ring, BottleKleine, Sadle,
     Tor, Sphere, EllipticalCylinder, Hyperbolic,
     ParabolicCylinder, SingleHyperbole, TwoHyperbole,
     Ellipsoid, Cone, SolarSystem, TorTheory, EllipticalParaboloid };

@@ -4,10 +4,10 @@ import { useState, useRef, useMemo, ChangeEvent } from "react";
 
 import {
     Figure, Cube, Ring, Sphere, BottleKleine,
-    Chips, EllipticalCylinder, Hyperbolic, ParabolicCylinder,
+    Sadle, EllipticalCylinder, Hyperbolic, ParabolicCylinder,
     Tor, Cone, Ellipsoid, SingleHyperbole, TwoHyperbole,
-    SolarSystem, TorTheory,
-    EllipticalParaboloid,
+    SolarSystem, TorTheory, EllipticalParaboloid,
+    Light,
 } from "../../../modules/math3D";
 
 type TShow = {
@@ -20,14 +20,11 @@ type TShow = {
 
 type TCanvasPage = {
     scenes: Array<Figure>,
-    changeLumen: (event: ChangeEvent) => void,
-    changeXLight: (event: React.KeyboardEvent) => void,
-    changeYLight: (event: React.KeyboardEvent) => void,
-    changeZLight: (event: React.KeyboardEvent) => void,
-    show: TShow
+    show: TShow,
+    listLight: Array<Light>,
 }
 
-const UI3D: React.FC <TCanvasPage> = ({scenes, show, changeLumen, changeXLight, changeYLight, changeZLight}) => {
+const UI3D: React.FC <TCanvasPage> = ({scenes, show, listLight}) => {
 
     const [showCanvasParam, setShowCanvasParam] = useState<boolean>(false);
     const [showLightParam, setShowLightParam] = useState<boolean>(false);
@@ -39,32 +36,55 @@ const UI3D: React.FC <TCanvasPage> = ({scenes, show, changeLumen, changeXLight, 
     let listRef = useRef<HTMLSelectElement>(null!);
     let list: string[] = [];
     list = useMemo(() => list = [], []);
+    const lightRef = useRef<HTMLSelectElement>(null!);
 
     const changeFigure = (): void => {
         setFigure(scenes[listRef.current.selectedIndex - 1]);
     }
 
-    const showPoints = (event: ChangeEvent): void => {
-        show.points = (event.target as HTMLInputElement).checked;
+    const showPoints = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        show.points = event.target.checked;
     }
 
-    const showEdges = (event: ChangeEvent): void => {
-        show.edges = (event.target as HTMLInputElement).checked;
+    const showEdges = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        show.edges = event.target.checked;
     }
 
-    const showPolygons = (event: ChangeEvent): void => {
-        show.polygons = (event.target as HTMLInputElement).checked;
+    const showPolygons = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        show.polygons = event.target.checked;
     }
 
-    const showAnimations = (event: ChangeEvent): void => {
-        show.animations = (event.target as HTMLInputElement).checked;
+    const showAnimations = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        show.animations = event.target.checked;
     }
 
-    const showShadows = (event: ChangeEvent): void => {
-        show.shadows = (event.target as HTMLInputElement).checked;
+    const showShadows = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        show.shadows = event.target.checked;
     }
+
+    const changeLumen = (event: ChangeEvent, light: Light): void => {
+        light.lumenPower = Number((event.target as HTMLInputElement).value);
+        light = new Light(light.x, light.y, light.z, Number((event.target as HTMLInputElement).value));
+    }
+    
+    const changeXLight = (event: React.KeyboardEvent, light: Light): void => {
+        light.x = Number((event.target as HTMLInputElement).value);
+        light = new Light(light.x, light.y, light.z, light.lumenPower);
+    }
+    
+    const changeYLight = (event: React.KeyboardEvent, light: Light): void => {
+        light.y = Number((event.target as HTMLInputElement).value);
+        light = new Light(light.x, light.y, light.z, light.lumenPower);
+    }
+    
+    const changeZLight = (event: React.KeyboardEvent, light: Light): void => {
+        light.z = Number((event.target as HTMLInputElement).value);
+        light = new Light(light.x, light.y, light.z, light.lumenPower);
+    }
+
 
     const addFigure = (event: React.MouseEvent): void => {
+        event.preventDefault();
         if (list.find(value => value === 'Sun') || list.find(value => value === 'Earth') || list.find(value => value === 'Moon')) return;
         const id = `${Math.round(Math.random() * 1000000)}`;
         switch ((event.target as HTMLSelectElement).value) {
@@ -84,9 +104,9 @@ const UI3D: React.FC <TCanvasPage> = ({scenes, show, changeLumen, changeXLight, 
                 list.push(`Sphere №${id}`);
                 scenes.push(new Sphere());
                 break;
-            case 'Chips':
-                list.push(`Chips №${id}`);
-                scenes.push(new Chips());
+            case 'Sadle':
+                list.push(`Sadle №${id}`);
+                scenes.push(new Sadle());
                 break;
             case 'Tor':
                 list.push(`Tor №${id}`);
@@ -141,6 +161,16 @@ const UI3D: React.FC <TCanvasPage> = ({scenes, show, changeLumen, changeXLight, 
         setUpdate(update + 1);
     }
 
+    const addLight = (): void => {
+        listLight.push(new Light(0, 0, 0, 1000));
+        setUpdate(update + 1);
+    }
+
+    const delLight = (index: number): void => {
+        listLight.splice(index, 1);
+        setUpdate(update + 1);
+    }
+
     const closeAllParam = (): void => {
         if (showAddChangeList) {
             setShowAddChangeList(false);
@@ -188,11 +218,18 @@ const UI3D: React.FC <TCanvasPage> = ({scenes, show, changeLumen, changeXLight, 
                     <div className="panel flex_c mar_b mar_l">
                         {showLightParam &&
                             <div className="flex_c">
-                                <label className="mar_b">Сила света<input onChange={(event) => changeLumen(event)} type="range" min={0} max={50000} /></label>
+                                <div className="flex_r">
+                                    <select ref={lightRef} className="output max_size mar_b">
+                                        {listLight.map((option, index) => <option key={index}>Light №{index + 1}</option>)}
+                                    </select>
+                                    <button onClick={addLight} className="mar_l">+</button>
+                                    {listLight.length > 1 && <button onClick={() => delLight((lightRef.current as HTMLSelectElement).selectedIndex)} className="mar_l">Удалить</button>}
+                                </div>
+                                <label className="mar_b">Сила света<input onChange={(event) => changeLumen(event, listLight[(lightRef.current as HTMLSelectElement).selectedIndex])} type="range" min={0} max={50000} /></label>
                                 <div className="mar_b">Позиция света</div>
-                                <input className="mar_b" placeholder="x" onKeyUp={(event) => changeXLight(event)} />
-                                <input className="mar_b" placeholder="y" onKeyUp={(event) => changeYLight(event)} />
-                                <input className="mar_b" placeholder="z" onKeyUp={(event) => changeZLight(event)} />
+                                <input className="mar_b" placeholder="x" onKeyUp={(event) => changeXLight(event, listLight[(lightRef.current as HTMLSelectElement).selectedIndex])} />
+                                <input className="mar_b" placeholder="y" onKeyUp={(event) => changeYLight(event, listLight[(lightRef.current as HTMLSelectElement).selectedIndex])} />
+                                <input className="mar_b" placeholder="z" onKeyUp={(event) => changeZLight(event, listLight[(lightRef.current as HTMLSelectElement).selectedIndex])} />
                             </div>
                         }
                     </div>
@@ -202,8 +239,8 @@ const UI3D: React.FC <TCanvasPage> = ({scenes, show, changeLumen, changeXLight, 
                     {showAddChangeList &&
                         <div className="flex_c">
                             <label className="">Play<input onChange={(event) => showAnimations(event)} type="checkbox" className="checkbox" /></label>
-                            <div className="flex_c">Добавить:
-                                <select defaultValue={'Фигуры'} onClick={(event) => addFigure(event)} className="output mar_b">
+                            <div className="flex_c">Открыть и выбрать(лкм), Добавить(пкм по боксу):
+                                <select defaultValue={'Фигуры'} onContextMenu={(event) => addFigure(event)} className="output mar_b">
                                     <option disabled>Фигуры</option>
                                     <option value="Cube">CUBE</option>
                                     <option value="Chips">CHIPS</option>

@@ -1,80 +1,68 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 
-const sin = (x: number): number => Math.sin(x);
-const cos = (x: number): number => Math.cos(x);
-
-type TCone = {
+type TSadle = {
     x0: number,
     y0: number,
     z0: number,
-    r: number,
+    a: number,
+    b: number,
     count: number,
-    color: string,
+    color: string
 }
 
-class Cone extends Figure {
+class Sadle extends Figure {
     x: number = 0;
     y: number = 0;
     z: number = 0;
-    r: number = 3.5;
+    a: number = 3.5;
+    b: number = 3.5;
     count: number = 20;
-    color: string = '#ffff00';
+    color: string = '#ff00ff';
     constructor() {
         super();
         this.init({
             x0: this.x,
             y0: this.y,
             z0: this.z,
-            r: this.r,
-            count: this.count,
+            a: this.a,
+            b: this.b,
             color: this.color,
+            count: this.count
         });
     }
 
-    init({x0, y0, z0, r, count, color}: TCone) {
-        const PI = Math.PI;
-        const dTeta = PI / count;
-        const dPhi = PI * 2 / count;
-        for (let teta = 0; teta <= PI ; teta += dTeta) {
-            for (let phi = 0; phi < PI * 2; phi += dPhi) {
-                const x = r * cos(phi) * teta + x0;     // sin и cos прописан в index.js 
-                const y = r * sin(phi) * teta + y0;
-                const z = r * teta + z0;
-                this.points.push(new Point(x, z, y))
+    init({x0, y0, z0, a, b, count, color}: TSadle): void {
+        for (let i = 0; i < count; i++) {
+            for (let j = 0; j < count; j++) {
+                const x = (i - count / 2) / a ** 2;
+                const y = (j - count / 2) / b ** 2;
+                const z = x ** 2 - y ** 2;
+                this.points.push(new Point(x + x0, y + y0, z + z0))
             }
         }
 
         for (let i = 0; i < this.points.length; i++) {
             if (this.points[i + 1]) {
-                if ((i + 1) % count === 0) {
-                    if (this.points[i - count]) {
-                        this.edges.push(new Edge(this.points[i], this.points[i + 1 - count]));
-                    }
-                } else {
+                if (!((i + 1) % count === 0)) {
                     this.edges.push(new Edge(this.points[i], this.points[i + 1]));
                 }
             }
+
             if (this.points[i + count]) {
                 this.edges.push(new Edge(this.points[i], this.points[i + count]));
             }
         }
 
         for (let i = 0; i < this.points.length; i++) {
-            if ((i + 1) % count === 0 && this.points[i + 1 - count] && this.points[i + count]){
-                this.polygons.push(new Polygon([
-                    this.points[i],
-                    this.points[i + 1 - count],
-                    this.points[i + 1],
-                    this.points[i + count],
-                ], color));
-            } else {
-                if (this.points[i + 1 + count]) {
+            if (this.points[i + count + 1]) {
+                if (!((i + 1) % count === 0)) {
                     this.polygons.push(new Polygon([
                     this.points[i],
                     this.points[i + 1],
                     this.points[i + 1 + count],
                     this.points[i + count]], color));
                 }
+                
             }
         }
     }
@@ -85,14 +73,29 @@ class Cone extends Figure {
         this.polygons = [];
     }
 
-    setRadius(r: number): void {
+    setA(a: number): void {
         this.clear();
-        this.r = r;
+        this.a = a,
         this.init({
             x0: this.x,
             y0: this.y,
             z0: this.z,
-            r: r,
+            a: a,
+            b: this.b,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setB(b: number): void {
+        this.clear();
+        this.b = b,
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            a: this.a,
+            b: b,
             count: this.count,
             color: this.color,
         });
@@ -105,7 +108,8 @@ class Cone extends Figure {
             x0: this.x,
             y0: this.y,
             z0: this.z,
-            r: this.r,
+            a: this.a,
+            b: this.b,
             count: count,
             color: this.color,
         });
@@ -120,7 +124,8 @@ class Cone extends Figure {
             x0: x,
             y0: y,
             z0: z,
-            r: this.r,
+            a: this.a,
+            b: this.b,
             count: this.count,
             color: this.color,
         });
@@ -137,12 +142,12 @@ class Cone extends Figure {
             x0: this.x,
             y0: this.y,
             z0: this.z,
-            r: this.r,
+            a: this.a,
+            b: this.b,
             count: this.count,
             color: color,
         });
     }
-    
 }
 
-export default Cone;
+export default Sadle;

@@ -43,7 +43,7 @@ const UI2D: React.FC <{funcs: Array<Func>, funcsI: Array<TFn>}> = ({funcs, funcs
 
     return (
         <div>
-            <button className="iconTop mar_b" onClick={() => { setShowPanel(!showPanel)}}>{showPanel? '<' : '>'}</button>
+            <button className="panel iconTop mar_b" onClick={() => { setShowPanel(!showPanel)}}>{showPanel? '<' : '>'}</button>
             { showPanel &&
             <div className="panel">
                 <button className="mar_t mar_l mar_b" onClick={() => addFunction()}>Добавить функцию</button>

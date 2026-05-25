@@ -78,6 +78,70 @@ class EllipticalParaboloid extends Figure {
             }
         }
     }
+
+    clear(): void {
+        this.points = [];
+        this.edges = [];
+        this.polygons = [];
+    }
+
+    setRadius(r: number): void {
+        this.clear();
+        this.r = r;
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            r: r,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setCount(count: number): void {
+        this.clear();
+        this.count = count;
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            r: this.r,
+            count: count,
+            color: this.color,
+        });
+    }
+
+    setCenter(x: number, y: number, z: number): void {
+        this.clear();
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.init({
+            x0: x,
+            y0: y,
+            z0: z,
+            r: this.r,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setOCenter(center: Point): void {
+        this.center = center;
+    }
+
+    setColor(color: string): void {
+        this.clear();
+        this.color = color;
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            r: this.r,
+            count: this.count,
+            color: color,
+        });
+    }
 }
 
 export default EllipticalParaboloid;

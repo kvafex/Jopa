@@ -129,6 +129,108 @@ class SingleHyperbole extends Figure {
             } 
         }
     }
+
+    clear(): void {
+        this.points = [];
+        this.edges = [];
+        this.polygons = [];
+    }
+
+    setA(a: number): void {
+        this.clear();
+        this.a = a,
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            a: a,
+            b: this.b,
+            c: this.c,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setB(b: number): void {
+        this.clear();
+        this.b = b,
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            a: this.a,
+            b: b,
+            c: this.c,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setC(c: number): void {
+        this.clear();
+        this.c = c,
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            a: this.a,
+            b: this.b,
+            c: c,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setCount(count: number): void {
+        this.clear();
+        this.count = count;
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            a: this.a,
+            b: this.b,
+            c: this.c,
+            count: count,
+            color: this.color,
+        });
+    }
+
+    setCenter(x: number, y: number, z: number): void {
+        this.clear();
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.init({
+            x0: x,
+            y0: y,
+            z0: z,
+            a: this.a,
+            b: this.b,
+            c: this.c,
+            count: this.count,
+            color: this.color,
+        });
+    }
+
+    setOCenter(center: Point): void {
+        this.center = center;
+    }
+
+    setColor(color: string): void {
+        this.clear();
+        this.color = color;
+        this.init({
+            x0: this.x,
+            y0: this.y,
+            z0: this.z,
+            a: this.a,
+            b: this.b,
+            c: this.c,
+            count: this.count,
+            color: color,
+        });
+    }
 }
 
 export default SingleHyperbole;
